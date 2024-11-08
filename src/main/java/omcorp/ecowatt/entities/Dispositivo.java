@@ -25,4 +25,8 @@ public class Dispositivo {
     @Column(name = "consumos")
     @OneToMany(mappedBy = "dispositivos")
     private List<Consumo> consumos;
+
+    @Column(name = "alertas")
+    @OneToMany(mappedBy = "dispositivos")
+    private List<Alerta> alertas;
 }
