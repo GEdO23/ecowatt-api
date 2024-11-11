@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import omcorp.ecowatt.dto.AlertaResponse;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Table(name = "ALERTAS")
@@ -22,6 +23,9 @@ public class Alerta {
     @Column(name = "mensagem")
     private String mensagem;
 
+    @Column(name = "data_hora")
+    private LocalDateTime dataHora;
+
     @ManyToOne
     @JoinColumn(name = "id_dispositivo", nullable = false)
     private Dispositivo dispositivo;
@@ -31,6 +35,7 @@ public class Alerta {
                 .id(this.id)
                 .mensagem(this.mensagem)
                 .idDispositivo(this.dispositivo.getId())
+                .dataHora(this.dataHora)
                 .build();
     }
 }

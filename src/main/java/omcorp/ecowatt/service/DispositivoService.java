@@ -13,18 +13,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class DispositivoService {
 
     private final DispositivoRepository repository;
-    private final AlertaService alertaService;
 
     @Transactional
     public ResponseEntity<DispositivoResponse> createDispositivo(DispositivoRequest request) {
         Dispositivo dispositivo = Dispositivo.builder()
                 .nome(request.getNome())
+                .local(request.getLocal())
+                .tipo(request.getTipo())
+                .limiteConsumo(request.getLimiteConsumo())
                 .alertas(new ArrayList<Alerta>())
                 .consumos(new ArrayList<Consumo>())
                 .build();
@@ -34,6 +37,9 @@ public class DispositivoService {
         DispositivoResponse response = DispositivoResponse.builder()
                 .id(dispositivo.getId())
                 .nome(dispositivo.getNome())
+                .local(dispositivo.getLocal())
+                .tipo(dispositivo.getTipo())
+                .limiteConsumo(dispositivo.getLimiteConsumo())
                 .alertas(dispositivo.toResponse().getAlertas())
                 .consumos(dispositivo.toResponse().getConsumos())
                 .build();
@@ -43,5 +49,13 @@ public class DispositivoService {
         var uri = uriBuilder.path("/dispositivo/{id}").buildAndExpand(dispositivo.getId()).toUri();
 
         return ResponseEntity.created(uri).body(response);
+    }
+
+    public Dispositivo getById(UUID idDispositivo) {
+        return repository.getReferenceById(idDispositivo);
+    }
+
+    public void salvarDispositivo(Dispositivo dispositivo) {
+        repository.save(dispositivo);
     }
 }

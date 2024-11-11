@@ -25,7 +25,7 @@ public class Consumo {
     @Column(name = "consumo")
     private BigDecimal consumo;
 
-    @Column(name = "data_hora")
+    @Column(name = "data_hora", updatable = false)
     private LocalDateTime dataHora;
 
     @ManyToOne

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import omcorp.ecowatt.dto.DispositivoResponse;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,15 @@ public class Dispositivo {
 
     @Column(name = "nome")
     private String nome;
+
+    @Column(name = "local")
+    private String local;
+
+    @Column(name = "tipo")
+    private String tipo;
+
+    @Column(name = "limite_consumo")
+    private BigDecimal limiteConsumo;
 
     @Column(name = "consumos")
     @OneToMany(mappedBy = "dispositivo")
@@ -45,6 +55,9 @@ public class Dispositivo {
         return DispositivoResponse.builder()
                 .id(this.getId())
                 .nome(this.getNome())
+                .tipo(this.getTipo())
+                .local(this.getLocal())
+                .limiteConsumo(this.getLimiteConsumo())
                 .alertas(listaAlertasResponse)
                 .consumos(listaConsumosResponse)
                 .build();
