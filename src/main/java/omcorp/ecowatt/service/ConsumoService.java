@@ -22,6 +22,7 @@ import java.util.UUID;
 public class ConsumoService {
 
     private final DispositivoService dispositivoService;
+    private final AlertaService alertaService;
     private final ConsumoRepository consumoRepository;
 
     @Transactional
@@ -34,6 +35,10 @@ public class ConsumoService {
 
         dispositivo.getConsumos().addFirst(consumo);
         dispositivoService.salvarDispositivo(dispositivo);
+
+        if (consumo.getConsumo().compareTo(dispositivo.getLimiteConsumo()) >= 0) {
+            alertaService.gerarAlerta(dispositivo);
+        }
 
         var uriBuilder = UriComponentsBuilder.newInstance();
         var uri = uriBuilder.path("/consumo/{id}").buildAndExpand(dispositivo.getId()).toUri();
