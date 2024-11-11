@@ -2,6 +2,7 @@ package omcorp.ecowatt.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import omcorp.ecowatt.dto.DispositivoResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,10 +24,29 @@ public class Dispositivo {
     private String nome;
 
     @Column(name = "consumos")
-    @OneToMany(mappedBy = "dispositivos")
+    @OneToMany(mappedBy = "dispositivo")
     private List<Consumo> consumos;
 
     @Column(name = "alertas")
-    @OneToMany(mappedBy = "dispositivos")
+    @OneToMany(mappedBy = "dispositivo")
     private List<Alerta> alertas;
+
+    public DispositivoResponse toResponse() {
+        var listaAlertasResponse = this.alertas
+                .stream()
+                .map(Alerta::toResponse)
+                .toList();
+
+        var listaConsumosResponse = this.consumos
+                .stream()
+                .map(Consumo::toResponse)
+                .toList();
+
+        return DispositivoResponse.builder()
+                .id(this.getId())
+                .nome(this.getNome())
+                .alertas(listaAlertasResponse)
+                .consumos(listaConsumosResponse)
+                .build();
+    }
 }

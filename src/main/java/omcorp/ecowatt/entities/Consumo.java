@@ -2,6 +2,7 @@ package omcorp.ecowatt.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import omcorp.ecowatt.dto.ConsumoResponse;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -30,4 +31,13 @@ public class Consumo {
     @ManyToOne
     @JoinColumn(name = "id_dispositivo", nullable = false)
     private Dispositivo dispositivo;
+
+    public ConsumoResponse toResponse() {
+        return ConsumoResponse.builder()
+                .id(this.id)
+                .consumo(this.consumo)
+                .dataHora(this.dataHora)
+                .idDispositivo(this.dispositivo.getId())
+                .build();
+    }
 }
