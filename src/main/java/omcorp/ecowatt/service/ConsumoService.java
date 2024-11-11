@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +39,17 @@ public class ConsumoService {
         var uri = uriBuilder.path("/consumo/{id}").buildAndExpand(dispositivo.getId()).toUri();
 
         return ResponseEntity.created(uri).body(consumo.toResponse());
+    }
+
+    public ResponseEntity<List<ConsumoResponse>> getConsumosByDispositivo(UUID id) {
+        Dispositivo dispositivo = dispositivoService.getById(id);
+        List<Consumo> consumos = dispositivo.getConsumos();
+
+        List<ConsumoResponse> consumoResponseList =  consumos.stream()
+                .map(Consumo::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(consumoResponseList);
+
     }
 }
