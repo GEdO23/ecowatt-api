@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import omcorp.ecowatt.dto.DispositivoRequest;
 import omcorp.ecowatt.dto.DispositivoResponse;
+import omcorp.ecowatt.dto.ListDispositivoResponse;
 import omcorp.ecowatt.entities.Alerta;
 import omcorp.ecowatt.entities.Consumo;
 import omcorp.ecowatt.entities.Dispositivo;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -57,5 +59,20 @@ public class DispositivoService {
 
     public void salvarDispositivo(Dispositivo dispositivo) {
         repository.save(dispositivo);
+    }
+
+    public ResponseEntity<List<ListDispositivoResponse>> getDispositivos() {
+        List<ListDispositivoResponse> dispositivos = repository.findAll().stream().map(Dispositivo::toListResponse).toList();
+        return ResponseEntity.ok(dispositivos);
+    }
+
+    public ResponseEntity deleteDispositivo(UUID id) {
+        try {
+            repository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+
     }
 }

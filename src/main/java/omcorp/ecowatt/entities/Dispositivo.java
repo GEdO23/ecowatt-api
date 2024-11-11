@@ -3,6 +3,7 @@ package omcorp.ecowatt.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import omcorp.ecowatt.dto.DispositivoResponse;
+import omcorp.ecowatt.dto.ListDispositivoResponse;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,11 +35,11 @@ public class Dispositivo {
     private BigDecimal limiteConsumo;
 
     @Column(name = "consumos")
-    @OneToMany(mappedBy = "dispositivo")
+    @OneToMany(mappedBy = "dispositivo", cascade = CascadeType.ALL)
     private List<Consumo> consumos;
 
     @Column(name = "alertas")
-    @OneToMany(mappedBy = "dispositivo")
+    @OneToMany(mappedBy = "dispositivo", cascade = CascadeType.ALL)
     private List<Alerta> alertas;
 
     public DispositivoResponse toResponse() {
@@ -60,6 +61,17 @@ public class Dispositivo {
                 .limiteConsumo(this.getLimiteConsumo())
                 .alertas(listaAlertasResponse)
                 .consumos(listaConsumosResponse)
+                .build();
+    }
+
+    public ListDispositivoResponse toListResponse() {
+
+        return ListDispositivoResponse.builder()
+                .id(this.getId())
+                .nome(this.getNome())
+                .tipo(this.getTipo())
+                .local(this.getLocal())
+                .limiteConsumo(this.getLimiteConsumo())
                 .build();
     }
 }
