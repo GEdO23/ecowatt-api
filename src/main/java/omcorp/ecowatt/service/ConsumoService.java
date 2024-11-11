@@ -5,13 +5,17 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import omcorp.ecowatt.dto.ConsumoRequest;
 import omcorp.ecowatt.dto.ConsumoResponse;
+import omcorp.ecowatt.dto.RelatorioResponse;
 import omcorp.ecowatt.entities.Consumo;
 import omcorp.ecowatt.entities.Dispositivo;
 import omcorp.ecowatt.repository.ConsumoRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -56,5 +60,26 @@ public class ConsumoService {
 
         return ResponseEntity.ok(consumoResponseList);
 
+    }
+
+    public ResponseEntity<RelatorioResponse> getRelatorio(@RequestParam LocalDate data) {
+        List<Consumo> consumos = consumoRepository.findAll();
+        consumos = consumos.stream()
+                .filter(consumo -> consumo.getDataHora().toLocalDate().equals(data))
+                .toList();
+
+        BigDecimal totalConsumo = consumos.stream()
+                .map(Consumo::getConsumo)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        String mensagem = "O Consumo do dia " + data.toString() + " foi de " + totalConsumo + "W.";
+
+        RelatorioResponse relatorio = RelatorioResponse.builder()
+                .totalConsumo(totalConsumo)
+                .mensagem(mensagem)
+                .data(data)
+                .build();
+
+        return ResponseEntity.ok(relatorio);
     }
 }

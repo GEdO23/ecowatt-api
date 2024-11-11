@@ -4,10 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import omcorp.ecowatt.dto.ConsumoRequest;
 import omcorp.ecowatt.dto.ConsumoResponse;
+import omcorp.ecowatt.dto.RelatorioResponse;
 import omcorp.ecowatt.service.ConsumoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,5 +28,10 @@ public class ConsumoController {
     @GetMapping("/dispositivo/{id}")
     public ResponseEntity<List<ConsumoResponse>> getConsumosByDispositivo(@PathVariable UUID id) {
         return consumoService.getConsumosByDispositivo(id);
+    }
+
+    @GetMapping("/relatorio")
+    public ResponseEntity<RelatorioResponse> getRelatorio(@RequestParam("data") LocalDate data) {
+        return consumoService.getRelatorio(data);
     }
 }
