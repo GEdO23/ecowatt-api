@@ -37,7 +37,7 @@ public class ConsumoService {
         dispositivoService.salvarDispositivo(dispositivo);
 
         if (consumo.getConsumo().compareTo(dispositivo.getLimiteConsumo()) >= 0) {
-            alertaService.gerarAlerta(dispositivo);
+            alertaService.gerarAlerta(dispositivo, consumo.getConsumo());
         }
 
         var uriBuilder = UriComponentsBuilder.newInstance();
