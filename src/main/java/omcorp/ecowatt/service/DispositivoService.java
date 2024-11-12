@@ -1,7 +1,9 @@
 package omcorp.ecowatt.service;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import omcorp.ecowatt.dto.AtualizarDispositivoRequest;
 import omcorp.ecowatt.dto.DispositivoRequest;
 import omcorp.ecowatt.dto.DispositivoResponse;
 import omcorp.ecowatt.dto.ListDispositivoResponse;
@@ -9,6 +11,8 @@ import omcorp.ecowatt.entities.Alerta;
 import omcorp.ecowatt.entities.Consumo;
 import omcorp.ecowatt.entities.Dispositivo;
 import omcorp.ecowatt.repository.DispositivoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -61,9 +65,9 @@ public class DispositivoService {
         repository.save(dispositivo);
     }
 
-    public ResponseEntity<List<ListDispositivoResponse>> getDispositivos() {
-        List<ListDispositivoResponse> dispositivos = repository.findAll().stream().map(Dispositivo::toListResponse).toList();
-        return ResponseEntity.ok(dispositivos);
+    public ResponseEntity<Page<ListDispositivoResponse>> getDispositivos(Pageable paginacao) {
+        var page = repository.findAll(paginacao).map(Dispositivo::toListResponse);
+        return ResponseEntity.ok(page);
     }
 
     public ResponseEntity deleteDispositivo(UUID id) {
@@ -74,5 +78,20 @@ public class DispositivoService {
             return ResponseEntity.badRequest().body(e);
         }
 
+    }
+
+    @Transactional
+    public ResponseEntity<DispositivoResponse> atualizarDispositivo(@Valid AtualizarDispositivoRequest request) {
+        var dispositivo = repository.getReferenceById(request.getId());
+        dispositivo = dispositivo.toBuilder()
+                .nome(request.getNome())
+                .local(request.getLocal())
+                .tipo(request.getTipo())
+                .limiteConsumo(request.getLimiteConsumo())
+                .build();
+
+        dispositivo = repository.save(dispositivo);
+
+        return ResponseEntity.ok(dispositivo.toResponse());
     }
 }
