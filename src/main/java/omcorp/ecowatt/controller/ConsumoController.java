@@ -2,9 +2,9 @@ package omcorp.ecowatt.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import omcorp.ecowatt.dto.ConsumoRequest;
-import omcorp.ecowatt.dto.ConsumoResponse;
-import omcorp.ecowatt.dto.RelatorioResponse;
+import omcorp.ecowatt.dto.consumo.ConsumoRequest;
+import omcorp.ecowatt.dto.consumo.ConsumoResponse;
+import omcorp.ecowatt.dto.consumo.RelatorioResponse;
 import omcorp.ecowatt.service.ConsumoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

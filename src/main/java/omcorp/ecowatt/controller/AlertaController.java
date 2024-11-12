@@ -1,8 +1,7 @@
 package omcorp.ecowatt.controller;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import omcorp.ecowatt.dto.AlertaResponse;
+import omcorp.ecowatt.dto.alerta.AlertaResponse;
 import omcorp.ecowatt.service.AlertaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

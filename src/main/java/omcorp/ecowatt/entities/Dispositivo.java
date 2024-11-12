@@ -2,8 +2,8 @@ package omcorp.ecowatt.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import omcorp.ecowatt.dto.DispositivoResponse;
-import omcorp.ecowatt.dto.ListDispositivoResponse;
+import omcorp.ecowatt.dto.dispositivo.DispositivoResponse;
+import omcorp.ecowatt.dto.dispositivo.ListDispositivoResponse;
 
 import java.math.BigDecimal;
 import java.util.List;

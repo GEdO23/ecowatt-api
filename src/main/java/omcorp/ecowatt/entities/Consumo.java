@@ -2,11 +2,10 @@ package omcorp.ecowatt.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import omcorp.ecowatt.dto.ConsumoResponse;
+import omcorp.ecowatt.dto.consumo.ConsumoResponse;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Table(name = "CONSUMOS")

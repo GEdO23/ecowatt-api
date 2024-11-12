@@ -1,4 +1,4 @@
-package omcorp.ecowatt.dto;
+package omcorp.ecowatt.dto.consumo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

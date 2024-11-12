@@ -1,4 +1,4 @@
-package omcorp.ecowatt.dto;
+package omcorp.ecowatt.dto.dispositivo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,16 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConsumoResponse {
+public class ListDispositivoResponse {
+
     private UUID id;
-    private BigDecimal consumo;
-    private LocalDateTime dataHora;
-    private UUID idDispositivo;
+
+    private String nome;
+
+    private String local;
+
+    private String tipo;
+
+    private BigDecimal limiteConsumo;
 }

@@ -1,9 +1,11 @@
-package omcorp.ecowatt.dto;
+package omcorp.ecowatt.dto.dispositivo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import omcorp.ecowatt.dto.alerta.AlertaResponse;
+import omcorp.ecowatt.dto.consumo.ConsumoResponse;
 
 import java.math.BigDecimal;
 import java.util.List;

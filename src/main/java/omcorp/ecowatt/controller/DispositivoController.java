@@ -2,10 +2,10 @@ package omcorp.ecowatt.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import omcorp.ecowatt.dto.AtualizarDispositivoRequest;
-import omcorp.ecowatt.dto.DispositivoRequest;
-import omcorp.ecowatt.dto.DispositivoResponse;
-import omcorp.ecowatt.dto.ListDispositivoResponse;
+import omcorp.ecowatt.dto.dispositivo.AtualizarDispositivoRequest;
+import omcorp.ecowatt.dto.dispositivo.DispositivoRequest;
+import omcorp.ecowatt.dto.dispositivo.DispositivoResponse;
+import omcorp.ecowatt.dto.dispositivo.ListDispositivoResponse;
 import omcorp.ecowatt.service.DispositivoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +13,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -32,7 +31,6 @@ public class DispositivoController {
     public ResponseEntity<Page<ListDispositivoResponse>> getDispositivos(@PageableDefault(sort = {"nome"}) Pageable paginacao) {
         return service.getDispositivos(paginacao);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<DispositivoResponse> getDispositivoById(@PathVariable UUID id) {

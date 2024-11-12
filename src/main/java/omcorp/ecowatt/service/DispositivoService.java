@@ -3,10 +3,10 @@ package omcorp.ecowatt.service;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import omcorp.ecowatt.dto.AtualizarDispositivoRequest;
-import omcorp.ecowatt.dto.DispositivoRequest;
-import omcorp.ecowatt.dto.DispositivoResponse;
-import omcorp.ecowatt.dto.ListDispositivoResponse;
+import omcorp.ecowatt.dto.dispositivo.AtualizarDispositivoRequest;
+import omcorp.ecowatt.dto.dispositivo.DispositivoRequest;
+import omcorp.ecowatt.dto.dispositivo.DispositivoResponse;
+import omcorp.ecowatt.dto.dispositivo.ListDispositivoResponse;
 import omcorp.ecowatt.entities.Alerta;
 import omcorp.ecowatt.entities.Consumo;
 import omcorp.ecowatt.entities.Dispositivo;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service

@@ -2,7 +2,7 @@ package omcorp.ecowatt.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import omcorp.ecowatt.dto.AlertaResponse;
+import omcorp.ecowatt.dto.alerta.AlertaResponse;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

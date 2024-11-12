@@ -3,7 +3,7 @@ package omcorp.ecowatt.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import omcorp.ecowatt.dto.AlertaResponse;
+import omcorp.ecowatt.dto.alerta.AlertaResponse;
 import omcorp.ecowatt.entities.Alerta;
 import omcorp.ecowatt.entities.Dispositivo;
 import omcorp.ecowatt.repository.AlertaRepository;

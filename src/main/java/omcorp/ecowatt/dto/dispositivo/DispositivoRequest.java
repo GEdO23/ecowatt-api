@@ -1,4 +1,4 @@
-package omcorp.ecowatt.dto;
+package omcorp.ecowatt.dto.dispositivo;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,16 +9,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AtualizarDispositivoRequest {
-
-    @NotNull(message = "O ID não pode ser nulo.")
-    private UUID id;
+public class DispositivoRequest {
 
     @NotBlank(message = "O nome não pode estar vazio.")
     @Size(max = 255, min = 3, message = "O nome tem tamanho máximo de 255 caracteres e mínimo de 3.")
