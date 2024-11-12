@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Table(name = "DISPOSITIVOS")
 @Entity
-@Builder
+@Builder(toBuilder = true)
 @Data
 @Getter
 @AllArgsConstructor

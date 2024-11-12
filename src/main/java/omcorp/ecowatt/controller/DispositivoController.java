@@ -2,6 +2,7 @@ package omcorp.ecowatt.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import omcorp.ecowatt.dto.AtualizarDispositivoRequest;
 import omcorp.ecowatt.dto.DispositivoRequest;
 import omcorp.ecowatt.dto.DispositivoResponse;
 import omcorp.ecowatt.dto.ListDispositivoResponse;
@@ -37,5 +38,10 @@ public class DispositivoController {
     @DeleteMapping("/{id}")
     public ResponseEntity deletarDispositivo(@PathVariable UUID id) {
         return service.deleteDispositivo(id);
+    }
+
+    @PutMapping
+    public ResponseEntity<DispositivoResponse> atualizarDispositivo(@RequestBody @Valid AtualizarDispositivoRequest request) {
+        return service.atualizarDispositivo(request);
     }
 }

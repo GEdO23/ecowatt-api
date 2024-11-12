@@ -1,7 +1,9 @@
 package omcorp.ecowatt.service;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import omcorp.ecowatt.dto.AtualizarDispositivoRequest;
 import omcorp.ecowatt.dto.DispositivoRequest;
 import omcorp.ecowatt.dto.DispositivoResponse;
 import omcorp.ecowatt.dto.ListDispositivoResponse;
@@ -74,5 +76,20 @@ public class DispositivoService {
             return ResponseEntity.badRequest().body(e);
         }
 
+    }
+
+    @Transactional
+    public ResponseEntity<DispositivoResponse> atualizarDispositivo(@Valid AtualizarDispositivoRequest request) {
+        var dispositivo = repository.getReferenceById(request.getId());
+        dispositivo = dispositivo.toBuilder()
+                .nome(request.getNome())
+                .local(request.getLocal())
+                .tipo(request.getTipo())
+                .limiteConsumo(request.getLimiteConsumo())
+                .build();
+
+        dispositivo = repository.save(dispositivo);
+
+        return ResponseEntity.ok(dispositivo.toResponse());
     }
 }
