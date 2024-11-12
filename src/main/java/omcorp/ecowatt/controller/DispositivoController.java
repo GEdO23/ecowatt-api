@@ -33,6 +33,7 @@ public class DispositivoController {
         return service.getDispositivos(paginacao);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<DispositivoResponse> getDispositivoById(@PathVariable UUID id) {
         return ResponseEntity.ok(service.getById(id).toResponse());
