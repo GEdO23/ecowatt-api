@@ -2,18 +2,16 @@ package omcorp.ecowatt.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import omcorp.ecowatt.dto.auth.AuthUserDto;
-import omcorp.ecowatt.dto.auth.SignUpUserRequest;
-import omcorp.ecowatt.dto.auth.UserAuthResponse;
-import omcorp.ecowatt.dto.auth.UserResponse;
+import omcorp.ecowatt.dto.auth.*;
 import omcorp.ecowatt.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -24,7 +22,17 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponse> singUp(@RequestBody @Valid SignUpUserRequest userDto) {
+    public ResponseEntity<UserResponse> signUp(@RequestBody @Valid SignUpUserRequest userDto) {
         return userService.signUp(userDto);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteUser(@PathVariable UUID id) {
+        return userService.deleteUser(id);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<UserResponse> update(@RequestBody @Valid UpdateUserRequest userDto) {
+        return userService.updateUser(userDto);
     }
 }

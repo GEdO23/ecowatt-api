@@ -1,11 +1,9 @@
 package omcorp.ecowatt.service;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import omcorp.ecowatt.dto.auth.AuthUserDto;
-import omcorp.ecowatt.dto.auth.SignUpUserRequest;
-import omcorp.ecowatt.dto.auth.UserAuthResponse;
-import omcorp.ecowatt.dto.auth.UserResponse;
+import omcorp.ecowatt.dto.auth.*;
 import omcorp.ecowatt.entities.User;
 import omcorp.ecowatt.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +50,7 @@ public class UserService implements UserDetailsService {
         return ResponseEntity.ok(response);
     }
 
+    @Transactional
     public ResponseEntity<UserResponse> signUp(@Valid SignUpUserRequest userDto) {
         User newUser = User.builder()
                 .name(userDto.getNome())
@@ -64,6 +64,39 @@ public class UserService implements UserDetailsService {
                 .id(newUser.getId())
                 .email(newUser.getEmail())
                 .nome(newUser.getName())
+                .build();
+
+        return ResponseEntity.ok(userResponse);
+    }
+
+    @Transactional
+    public ResponseEntity deleteUser(UUID id) {
+        try {
+            repository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao deletar usuário: " + e);
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<UserResponse> updateUser(@Valid UpdateUserRequest userDto) {
+        Optional<User> oldUser = repository.findById(userDto.getId());
+        if (oldUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = oldUser.get().toBuilder()
+                .id(userDto.getId())
+                .email(userDto.getEmail())
+                .name(userDto.getNome())
+                .password(passwordEncoder.encode(userDto.getSenha()))
+                .build();
+
+        UserResponse userResponse = UserResponse.builder()
+                .id(user.getId())
+                .nome(user.getName())
+                .email(user.getEmail())
                 .build();
 
         return ResponseEntity.ok(userResponse);

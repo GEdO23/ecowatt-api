@@ -27,7 +27,7 @@ public class SpringSecurityConfig {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/auth", "/signup").permitAll()
+                        auth -> auth.requestMatchers("/user/auth", "/user/signup").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
