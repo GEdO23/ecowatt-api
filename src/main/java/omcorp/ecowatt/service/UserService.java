@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import omcorp.ecowatt.dto.auth.*;
 import omcorp.ecowatt.entities.User;
 import omcorp.ecowatt.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -100,5 +103,27 @@ public class UserService implements UserDetailsService {
                 .build();
 
         return ResponseEntity.ok(userResponse);
+    }
+
+    public ResponseEntity<UserResponse> getUserById(UUID id) {
+        Optional<User> op = repository.findById(id);
+        if (op.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = op.get();
+
+        UserResponse userResponse = UserResponse.builder()
+                .id(user.getId())
+                .nome(user.getName())
+                .email(user.getEmail())
+                .build();
+
+        return ResponseEntity.ok(userResponse);
+    }
+
+    public ResponseEntity<List<UserResponse>> getUsers() {
+        var users = repository.findAll().stream().map(User::toUserResponse).toList();
+        return ResponseEntity.ok(users);
     }
 }

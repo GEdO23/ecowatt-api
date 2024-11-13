@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -64,9 +65,9 @@ public class DispositivoService {
         repository.save(dispositivo);
     }
 
-    public ResponseEntity<Page<ListDispositivoResponse>> getDispositivos(Pageable paginacao) {
-        var page = repository.findAll(paginacao).map(Dispositivo::toListResponse);
-        return ResponseEntity.ok(page);
+    public ResponseEntity<List<ListDispositivoResponse>> getDispositivos() {
+        var dispositivos = repository.findAll().stream().map(Dispositivo::toListResponse).toList();
+        return ResponseEntity.ok(dispositivos);
     }
 
     public ResponseEntity deleteDispositivo(UUID id) {

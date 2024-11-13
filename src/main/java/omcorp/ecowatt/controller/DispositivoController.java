@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -28,8 +29,8 @@ public class DispositivoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ListDispositivoResponse>> getDispositivos(@PageableDefault(sort = {"nome"}) Pageable paginacao) {
-        return service.getDispositivos(paginacao);
+    public ResponseEntity<List<ListDispositivoResponse>> getDispositivos() {
+        return service.getDispositivos();
     }
 
     @GetMapping("/{id}")

@@ -4,9 +4,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import omcorp.ecowatt.dto.auth.*;
 import omcorp.ecowatt.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -34,5 +38,15 @@ public class UserController {
     @PutMapping("/update")
     public ResponseEntity<UserResponse> update(@RequestBody @Valid UpdateUserRequest userDto) {
         return userService.updateUser(userDto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable UUID id) {
+        return userService.getUserById(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserResponse>> getUsers() {
+        return userService.getUsers();
     }
 }

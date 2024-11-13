@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import omcorp.ecowatt.dto.auth.UserResponse;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,5 +47,13 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public UserResponse toUserResponse() {
+        return UserResponse.builder()
+                .email(this.getEmail())
+                .nome(this.getName())
+                .id(this.getId())
+                .build();
     }
 }
