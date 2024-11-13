@@ -3,18 +3,12 @@
 
 # Endpoints
 
-- ### [User](#user)
-- ### [Dispositivo](#dispositvo)
-- ### [Consumo](#consumo)
-- ### [Alertas](#alertas)
-
 #### Importante: Todo endpoint exceto os de autorização e cadastro de usuários são necessários utilizar o header de authorization com Bearer Token. EX:
 
 ```
   Authorization: Bearer {token}
 ```
 
-<a id="user"></a>
 ## User
 
 ### POST */api/user/signup*
@@ -148,7 +142,6 @@ Este endpoint tem a função de deletar um usuário do banco de dados.
   204: no content
 ```
 
-<a id="dispositivo"></a>
 ## Dispositivo
 
 ### POST */api/dispositivo*
@@ -273,7 +266,6 @@ Este endpoint tem a função de deletar um dispositivo no banco de dados.
 
 ---
 
-<a id="consumo"></a>
 ## Consumo
 
 ### POST */api/consumo*
@@ -343,7 +335,6 @@ Este endpoint tem a função de gerar um relatório de consumo de todos os dispo
 
 ---
 
-<a id="alertas"></a>
 ## Alertas
 
 ### GET */api/alertas/dispositivo/{id}*
