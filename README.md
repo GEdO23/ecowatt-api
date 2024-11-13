@@ -3,6 +3,12 @@
 
 # Endpoints
 
+#### Importante: Todo endpoint exceto os de autorização e cadastro de usuários são necessários utilizar o header de authorization com Bearer Token. EX:
+
+```
+  Authorization: Bearer {token}
+```
+
 ## User
 
 ### POST */api/user/signup*
